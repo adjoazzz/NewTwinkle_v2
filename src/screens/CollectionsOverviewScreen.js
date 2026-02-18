@@ -24,7 +24,16 @@ export default function CollectionsOverviewScreen({ navigation, route }) {
   useEffect(() => {
     // If a new collection was passed, add it to the list
     if (newCollection) {
-      setCollections(prevCollections => [...prevCollections, newCollection]);
+      setCollections(prevCollections => {
+        // Disable all previous collections (only one can be active at a time)
+        const updatedPrevCollections = prevCollections.map(col => ({
+          ...col,
+          enabled: false  // Auto-disable old collections when new one is added
+        }));
+        
+        // Add the new collection (enabled by default)
+        return [...updatedPrevCollections, newCollection];
+      });
     }
   }, [newCollection]);
 

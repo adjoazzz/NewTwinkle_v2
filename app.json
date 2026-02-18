@@ -20,7 +20,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yourname.wallpaperapp"
+      "package": "com.yourname.wallpaperapp",
+      "permissions": [
+        "SET_WALLPAPER"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

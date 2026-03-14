@@ -15,7 +15,7 @@ import {
 export default function CustomizeScreen({ route, navigation }) {
   const { images = [], sourceUrl = '' } = route.params || {};
   
-  const [collectionName, setCollectionName] = useState('My 2026✨');
+  const [collectionName, setCollectionName] = useState('');
   const [frequency, setFrequency] = useState('Every week');
   const [rotationType, setRotationType] = useState('Shuffle');
   const [location, setLocation] = useState('Home Screen');
@@ -50,11 +50,14 @@ export default function CustomizeScreen({ route, navigation }) {
   );
 
   const handleNext = () => {
+    // Use generic name if user didn't provide one
+    const finalCollectionName = collectionName.trim() || 'My Collection';
+    
     navigation.navigate('Preview', {
       images,
       sourceUrl,
       settings: {
-        collectionName,
+        collectionName: finalCollectionName,
         frequency,
         rotationType,
         location,
@@ -98,7 +101,7 @@ export default function CustomizeScreen({ route, navigation }) {
                 style={styles.input}
                 value={collectionName}
                 onChangeText={setCollectionName}
-                placeholder="My Collection"
+                placeholder="e.g., Travel Dreams, Daily Motivation..."
                 placeholderTextColor="rgba(255, 255, 255, 0.4)"
               />
             </View>

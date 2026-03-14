@@ -150,26 +150,27 @@ export default function HomeScreen({ navigation }) {
                       </Text>
                     </View>
                     
-                    <TextInput
-                      style={styles.textInput}
-                      placeholder="Your board link here"
-                      placeholderTextColor="rgba(0, 0, 0, 0.4)"
-                      value={pinterestUrl}
-                      onChangeText={setPinterestUrl}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      keyboardType="url"
-                      returnKeyType="go"
-                      onSubmitEditing={handlePinterestSubmit}
-                      editable={!loading}
-                    />
-                    
-                    {loading && (
-                      <View style={styles.loadingContainer}>
-                        <ActivityIndicator size="small" color="#FFFFFF" />
-                        <Text style={styles.loadingText}>Fetching images...</Text>
-                      </View>
-                    )}
+                    {/* Input with inline loader */}
+                    <View style={styles.inputContainer}>
+                      <TextInput
+                        style={[styles.textInput, loading && styles.textInputWithLoader]}
+                        placeholder="Your board link here"
+                        placeholderTextColor="rgba(0, 0, 0, 0.4)"
+                        value={pinterestUrl}
+                        onChangeText={setPinterestUrl}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        keyboardType="url"
+                        returnKeyType="go"
+                        onSubmitEditing={handlePinterestSubmit}
+                        editable={!loading}
+                      />
+                      {loading && (
+                        <View style={styles.inlineLoader}>
+                          <ActivityIndicator size="small" color="#666" />
+                        </View>
+                      )}
+                    </View>
                   </View>
 
                   <TouchableOpacity
@@ -252,13 +253,6 @@ const styles = StyleSheet.create({
   inputSection: {
     gap: 12,
   },
-  // uploadSection: {
-  //   backgroundColor: 'rgba(255, 255, 255, 0.25)',
-  //   borderRadius: 16,
-  //   padding: 20,
-  //   borderWidth: 1.5,
-  //   borderColor: 'rgba(255, 255, 255, 0.5)',
-  // },
   uploadContent: {
     gap: 8,
   },
@@ -278,6 +272,9 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontFamily: 'NeueMontreal',
   },
+  inputContainer: {
+    position: 'relative',
+  },
   textInput: {
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     height: 56,
@@ -287,18 +284,14 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'NeueMontreal',
   },
-  loadingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8,
-    gap: 8,
+  textInputWithLoader: {
+    paddingRight: 50, // Make room for the loader
   },
-  loadingText: {
-    fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.95)',
-    fontFamily: 'NeueMontreal',
+  inlineLoader: {
+    position: 'absolute',
+    right: 16,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
   },
 });
-
-
-//i just want to test the commit
